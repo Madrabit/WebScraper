@@ -49,7 +49,7 @@ public class SeleniumHandler {
     }
 
     public void click(WebElement element) {
-        JavascriptExecutor js= (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", element);
     }
 
@@ -58,7 +58,13 @@ public class SeleniumHandler {
     }
 
     public void jumpToResult() {
-        JavascriptExecutor js= (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         js.executeScript("window.confirm = () => true; document.querySelector(\'.watupro-submit-button:not([style*=\"display: none\"]\').click();");
+
     }
 }
