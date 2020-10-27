@@ -43,6 +43,10 @@ public class SeleniumHandler {
         }
     }
 
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
     private WebDriver getChromeDriver() {
         ChromeConfig.setDriverPath();
         return new ChromeDriver(ChromeConfig.getChromeOptions());
@@ -64,7 +68,8 @@ public class SeleniumHandler {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        js.executeScript("window.confirm = () => true; document.querySelector(\'.watupro-submit-button:not([style*=\"display: none\"]\').click();");
+        js.executeScript("document.querySelectorAll(\".watu-question\").forEach(e => e.parentNode.removeChild(e));" +
+                "window.confirm = () => true; document.querySelector(\'.watupro-submit-button:not([style*=\"display: none\"]\').click();");
 
     }
 }
