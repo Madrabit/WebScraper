@@ -17,9 +17,13 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-public class CreateExcelDemo {
+public class CreateExcel {
 
-    private String filePath = "C:/demo/test_rosteh.xlsx";
+    private String filePath;
+
+    public CreateExcel(String id) {
+        filePath = "C:/demo/" + id + ".xlsx";
+    }
 
     public void createExcel(List<Question> questionList) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -61,6 +65,38 @@ public class CreateExcelDemo {
         cell = row.createCell(6, CellType.STRING);
         cell.setCellValue("Номера правильных ответов (начиная с 1)");
         cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(7, CellType.STRING);
+        cell.setCellValue("Следование вариантов ответов (если пусто - последовательно, если Random - случайно)");
+        cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(8, CellType.STRING);
+        cell.setCellValue("Длительность (секунд)");
+        cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(9, CellType.STRING);
+        cell.setCellValue("Показывать правильный ответ (пусто - нет, иначе - да)");
+        cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(10, CellType.STRING);
+        cell.setCellValue("Инструкция к вопросу (либо пусто)");
+        cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(11, CellType.STRING);
+        cell.setCellValue("Инструкция к вопросу (либо пусто)");
+        cell.setCellStyle(style);
+        // Default "right" message
+        cell = row.createCell(12, CellType.STRING);
+        cell.setCellValue("Сообщение при верном ответе");
+        cell.setCellStyle(style);
+        // Default "wrong" message
+        cell = row.createCell(13, CellType.STRING);
+        cell.setCellValue("Сообщение при ошибочном ответе");
+        cell.setCellStyle(style);
+        // Default empty field
+        cell = row.createCell(14, CellType.STRING);
+        cell.setCellValue("Комментарий к вопросу (или пусто)");
+        cell.setCellStyle(style);
 
         // Data
         for (Question q : questionList) {
@@ -68,7 +104,7 @@ public class CreateExcelDemo {
 
             // Id (A)
             cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("A.1-" + rowNumber);
+            cell.setCellValue(q.getId());
             // Title (B)
             cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(q.getText());
@@ -107,10 +143,14 @@ public class CreateExcelDemo {
                 }
             }
             cell.setCellValue(answerNum.toString());
+            // Message "Right" (M)
+            cell = row.createCell(12, CellType.STRING);
+            cell.setCellValue("Правильно!");
+            // Message "Wrong" (N)
+            cell = row.createCell(13, CellType.STRING);
+            cell.setCellValue("Не правильно");
         }
-
         createFile(workbook);
-
     }
 
 
@@ -131,6 +171,5 @@ public class CreateExcelDemo {
             log.error(e.getMessage(), e);
         }
         log.info("Created file: {}", file.getAbsolutePath());
-
     }
 }

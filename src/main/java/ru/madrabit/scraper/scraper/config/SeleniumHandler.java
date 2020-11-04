@@ -62,7 +62,7 @@ public class SeleniumHandler {
         try {
            element = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(path)));
         }  catch (Exception e) {
-            log.info("NO such element: {}", path);
+//            log.info("NO such element: {}", path);
         }
        return element;
     }
@@ -103,11 +103,11 @@ public class SeleniumHandler {
                 "        }\n" +
                 "    }\n" +
                 "}\n" );
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         js.executeScript("document.querySelector('.watupro-submit-button:not([style*=\"display: none\"]').disabled = false;" +
                 "document.querySelector(\'.watupro-submit-button:not([style*=\"display: none\"]\').click();");
 

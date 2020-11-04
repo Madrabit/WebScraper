@@ -17,7 +17,7 @@ import java.util.TreeSet;
 @EqualsAndHashCode
 @ToString
 public class Question {
-    private int id;
+    private String id;
     private String text;
     private Set<Answer> answerSet = new TreeSet<>(new Comparator<Answer>() {
         @Override
@@ -27,7 +27,7 @@ public class Question {
     });
     private Set<Integer> answerNumber = new HashSet<>();
 
-    public Question(int id, String text) {
+    public Question(String id, String text) {
         this.id = id;
         this.text = text;
     }

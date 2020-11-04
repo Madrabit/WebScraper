@@ -15,10 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 public class Answer {
     private int id;
     private String text;
-    private int question_id;
+    private String question_id;
     private boolean right;
 
-    public Answer(int id, String text, int question_id) {
+    public Answer(int id, String text, String question_id) {
         this.id = id;
         this.text = text;
         this.question_id = question_id;
