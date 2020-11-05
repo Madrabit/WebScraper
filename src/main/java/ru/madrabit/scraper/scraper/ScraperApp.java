@@ -15,11 +15,11 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
-public class ScraperApp implements Crawler {
+public class ScraperApp implements  Crawler{
 
     public static final String START_URL = "https://tests24.su/test-24/promyshlennaya-bezopasnost/";
-    private SeleniumHandler seleniumHandler = new SeleniumHandler();
-    private Util util = new Util(seleniumHandler);
+    private SeleniumHandler seleniumHandler = SeleniumHandler.getSeleniumHandler();
+    private Util util = Util.getUtil();
 
     List<String> letters = new ArrayList<>();
 
@@ -41,27 +41,18 @@ public class ScraperApp implements Crawler {
             letters = scrapeLetters();
             log.info("Letters collected: {}", letters.size());
 //            for (String letter : letters) {
-            for (int i = 0; i < 1; i++) {
+            for (int i = 10; i < 13; i++) {
                 util.moveToUrl(letters.get(i));
-                subTests.addAll(scrapeSubTests());
+                List<String> subTests = scrapeSubTests();
+
 //                for (String ticket : subTests) {
-                for (int j = 0; j < 1; j++) {
+                for (int j = 0; j < subTests.size(); j++) {
                     util.moveToUrl(subTests.get(j));
                     String id = util.getTestNameFromUrl(subTests.get(j));
-                    List<String> ticketsList = scrapeTickets();
+                    List<String> ticketsList = util.scrapeTickets();
                     log.info("Tickets collected: {}", ticketsList.size());
-                    List<Question> questionList = new LinkedList<>();
-                    util.setQuestionSerial(0);
-                    for (String ticket : ticketsList) {
-                        util.moveToUrl(ticket);
-                        seleniumHandler.jumpToResult();
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        questionList.addAll(util.getAllQuestions(id));
-                    }
+                    QuestionsParser questionsParser = new QuestionsParser(ticketsList, id);
+                    List<Question> questionList = questionsParser.iterateTickets();
                     log.info("Questions in ticket: {}",questionList.size());
                     if (!questionList.isEmpty()) {
                         CreateExcel excelDemo = new CreateExcel(id);
@@ -72,7 +63,6 @@ public class ScraperApp implements Crawler {
             }
             log.info("Sub tests collected: {}", subTests.size());
             seleniumHandler.stop();
-
         }
     }
 
@@ -91,10 +81,10 @@ public class ScraperApp implements Crawler {
     }
 
     private List<String> commonScraper(String mainBlock, String element) {
-        WebElement mainB = seleniumHandler.getElement(mainBlock);
-        List<String> list = mainB.findElements(By.cssSelector(element))
-                .stream().map(e -> e.getAttribute("href")).collect(toList());
-        return list;
+        return  seleniumHandler.getElement(mainBlock)
+                .findElements(By.cssSelector(element))
+                .stream().map(e -> e.getAttribute("href"))
+                .collect(toList());
     }
 
 

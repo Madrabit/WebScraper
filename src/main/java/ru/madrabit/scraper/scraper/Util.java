@@ -14,13 +14,22 @@ import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public class Util {
-    private String previousURL;
-    private int questionSerial;
-    private final SeleniumHandler seleniumHandler;
+    private static Util util;
+    private static SeleniumHandler seleniumHandler;
 
-    public Util(SeleniumHandler seleniumHandler) {
-        this.seleniumHandler = seleniumHandler;
+    private Util() {
+
     }
+
+    public static Util getUtil() {
+        seleniumHandler = SeleniumHandler.getSeleniumHandler();
+        if (util == null) {
+            util = new Util();
+        }
+        return util;
+    }
+
+    private int questionSerial;
 
     public List<String> scrapeTickets() {
         String LINKS = "div p a ";
@@ -45,7 +54,6 @@ public class Util {
 
     public void moveToUrl(String url) {
         try {
-//            previousURL = seleniumHandler.getCurrentUrl();
             seleniumHandler.openPage(url);
         } catch (Exception e) {
             log.error("Can't click element: {}", url);

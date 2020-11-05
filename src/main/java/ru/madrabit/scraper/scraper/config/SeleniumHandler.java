@@ -12,6 +12,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
 public class SeleniumHandler {
+    private static SeleniumHandler seleniumHandler;
+
+    private SeleniumHandler() {
+    }
+
+    public static SeleniumHandler getSeleniumHandler() {
+        if (seleniumHandler == null) {
+            seleniumHandler = new SeleniumHandler();
+        }
+        return seleniumHandler;
+    }
+
     private WebDriver driver;
     private Wait<WebDriver> wait;
     public static final int WAIT_TIME_MAX = 2;
@@ -70,9 +82,9 @@ public class SeleniumHandler {
     public void jumpToResult() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         js.executeScript("WatuPRO.submitResult = function (e) { \n" +
                 "    var data = {\n" +
@@ -115,3 +127,5 @@ public class SeleniumHandler {
 
     }
 }
+
+

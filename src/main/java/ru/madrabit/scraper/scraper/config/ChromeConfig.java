@@ -13,9 +13,8 @@ public class ChromeConfig {
     }
 
     static ChromeOptions getChromeOptions() {
-        ChromeOptions chromeOptions = new ChromeOptions()
+        return new ChromeOptions()
                 .addArguments("--lang=ru")
                 .addArguments("start-maximized");
-        return chromeOptions;
     }
 }
