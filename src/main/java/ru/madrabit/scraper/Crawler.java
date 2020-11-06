@@ -1,4 +1,4 @@
-package ru.madrabit.scraper.scraper;
+package ru.madrabit.scraper;
 
 public interface Crawler {
     void start();

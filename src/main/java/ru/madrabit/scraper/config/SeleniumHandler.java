@@ -1,4 +1,4 @@
-package ru.madrabit.scraper.scraper.config;
+package ru.madrabit.scraper.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;

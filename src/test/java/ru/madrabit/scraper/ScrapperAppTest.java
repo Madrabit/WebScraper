@@ -2,8 +2,6 @@ package ru.madrabit.scraper;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.madrabit.scraper.scraper.CrawlerForA;
-import ru.madrabit.scraper.scraper.ScraperApp;
 
 public class ScrapperAppTest {
 

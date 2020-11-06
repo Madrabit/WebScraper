@@ -1,10 +1,10 @@
-package ru.madrabit.scraper.scraper;
+package ru.madrabit.scraper;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.madrabit.scraper.scraper.config.SeleniumHandler;
-import ru.madrabit.scraper.scraper.domen.Answer;
-import ru.madrabit.scraper.scraper.domen.Question;
+import ru.madrabit.scraper.config.SeleniumHandler;
+import ru.madrabit.scraper.domen.Answer;
+import ru.madrabit.scraper.domen.Question;
 
 import java.util.LinkedList;
 import java.util.List;

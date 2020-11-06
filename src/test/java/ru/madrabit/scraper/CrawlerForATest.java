@@ -2,7 +2,6 @@ package ru.madrabit.scraper;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.madrabit.scraper.scraper.CrawlerForA;
 
 public class CrawlerForATest {
     @Test

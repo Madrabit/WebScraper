@@ -1,15 +1,13 @@
-package ru.madrabit.scraper.scraper;
+package ru.madrabit.scraper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.madrabit.scraper.scraper.config.SeleniumHandler;
-import ru.madrabit.scraper.scraper.domen.Answer;
-import ru.madrabit.scraper.scraper.domen.Question;
-import ru.madrabit.scraper.scraper.poi.CreateExcel;
+import ru.madrabit.scraper.config.SeleniumHandler;
+import ru.madrabit.scraper.domen.Question;
+import ru.madrabit.scraper.poi.CreateExcel;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;

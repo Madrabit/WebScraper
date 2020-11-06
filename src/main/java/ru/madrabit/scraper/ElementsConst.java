@@ -1,4 +1,4 @@
-package ru.madrabit.scraper.scraper;
+package ru.madrabit.scraper;
 
 public class ElementsConst {
     public static final String TEST_A = "p:nth-child(1) > strong > a";

@@ -1,4 +1,4 @@
-package ru.madrabit.scraper.scraper.poi;
+package ru.madrabit.scraper.poi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -8,8 +8,8 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ru.madrabit.scraper.scraper.domen.Answer;
-import ru.madrabit.scraper.scraper.domen.Question;
+import ru.madrabit.scraper.domen.Answer;
+import ru.madrabit.scraper.domen.Question;
 
 import java.io.File;
 import java.io.FileOutputStream;

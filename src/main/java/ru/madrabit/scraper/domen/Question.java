@@ -1,4 +1,4 @@
-package ru.madrabit.scraper.scraper.domen;
+package ru.madrabit.scraper.domen;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
