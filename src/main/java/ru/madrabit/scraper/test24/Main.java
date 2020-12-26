@@ -4,10 +4,9 @@ import ru.madrabit.scraper.Scrapper;
 import ru.madrabit.scraper.TargetSite;
 import ru.madrabit.scraper.consts.SiteLetters;
 
-public class SiteTest24su implements TargetSite {
+public class Main implements TargetSite {
 
     private Scrapper scrapper;
-
 
     @Override
     public void execute(SiteLetters letter) {

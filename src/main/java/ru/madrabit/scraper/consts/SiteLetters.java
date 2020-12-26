@@ -1,5 +1,6 @@
 package ru.madrabit.scraper.consts;
 
+
 public enum SiteLetters {
     ALL,
     A_1,

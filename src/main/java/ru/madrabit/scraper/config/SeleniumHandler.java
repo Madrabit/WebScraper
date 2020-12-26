@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Basic Selenium methods: start, stop, getElement and etc.
+ */
 @Slf4j
 public class SeleniumHandler {
     private static SeleniumHandler seleniumHandler;
@@ -26,7 +29,7 @@ public class SeleniumHandler {
 
     private WebDriver driver;
     private Wait<WebDriver> wait;
-    public static final int WAIT_TIME_MAX = 2;
+    public static final int WAIT_TIME_MAX = 2; // That number calculated empirically. Affect scraper performance.
 
     public boolean start() {
         try {
@@ -79,6 +82,9 @@ public class SeleniumHandler {
        return element;
     }
 
+    /**
+     * When test is started, this script jump to result. Skipping all test questions.
+     */
     public void jumpToResult() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         try {

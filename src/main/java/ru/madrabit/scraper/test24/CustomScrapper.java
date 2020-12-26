@@ -33,37 +33,32 @@ public class CustomScrapper implements Scrapper {
             UrlCrawler urlCrawler = new UrlCrawlerImpl(seleniumHandler);
             if (letter.equals(SiteLetters.A_1)) {
                 seleniumHandler.openPage(ElementsConst.A_TICKETS);
+                Map<String, List<String>> tickets = urlCrawler.getTicketsUrlForA1();
+                log.info("Tickets size: {}", tickets.size());
+                QuestionsParser questionsParser = new QuestionsParser(tickets.get("A.1"), "A.1");
+                questionList = questionsParser.iterateTickets();
+                log.info("Questions in ticket: {}", questionList.size());
+                if (!questionList.isEmpty()) {
+                    CreateExcel excelDemo = new CreateExcel("A.1");
+                    excelDemo.createExcel(questionList);
+                }
             } else {
                 letters = urlCrawler.scrapeLetters();
                 seleniumHandler.openPage(letters.get(letter));
                 Map<String, String> subTests = urlCrawler.scrapeSubTests();
+                Map<String, List<String>> tickets = urlCrawler.getTicketsUrl(subTests);
+                log.info("Tickets size: {}", tickets.size());
+                for (Map.Entry<String, List<String>> entry : tickets.entrySet()) {
+                    QuestionsParser questionsParser = new QuestionsParser(entry.getValue(), entry.getKey());
+                    questionList = questionsParser.iterateTickets();
+                    log.info("Questions in ticket: {}", questionList.size());
+                    if (!questionList.isEmpty()) {
+                        CreateExcel excelDemo = new CreateExcel(entry.getKey());
+                        excelDemo.createExcel(questionList);
+                    }
+                }
             }
-
-
-
-
-//            log.info("Opened page with tickets: {}", letter);
-//            ticketsList = util.scrapeTickets();
-//            log.info("Tickets collected: {}", ticketsList.size());
-
-//            QuestionsParser questionsParser = new QuestionsParser(ticketsList, "A.1");
-//            questionList = questionsParser.iterateTickets();
-//            log.info("Questions in ticket: {}", questionList.size());
-
-
-//            for (String scrapeTicket : ticketsList) {
-//                util.moveToUrl(scrapeTicket);
-//                seleniumHandler.jumpToResult();
-//                questionList.addAll(util.getAllQuestions("A.1"));
-//            }
-//            log.info("Questions collectes: {}", questionList.size());
-//            seleniumHandler.stop();
+            seleniumHandler.stop();
         }
-//        if (!questionList.isEmpty()) {
-//            CreateExcel excelDemo = new CreateExcel("A.1");
-//            excelDemo.createExcel(questionList);
-//        }
     }
-
-
 }
