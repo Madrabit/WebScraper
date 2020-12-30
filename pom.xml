@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
+        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.target>12</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -67,5 +67,22 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>build</id>
+            <build>
+                <finalName>chromedriver.exe</finalName>
+                <resources>
+                    <resource>
+                        <directory>${basedir}</directory>
+                        <filtering>false</filtering>
+                        <includes>
+                            <include>chromedriver.exe</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

@@ -21,8 +21,10 @@ public class CreateExcel {
 
     private String filePath;
 
+
     public CreateExcel(String id) {
-        filePath = "C:/demo/" + id + ".xlsx";
+        System.out.println(System.getProperty("user.dir"));
+        filePath = System.getProperty("user.dir") + "/tests/" + id + ".xlsx";
     }
 
     public void createExcel(List<Question> questionList) {
@@ -117,12 +119,14 @@ public class CreateExcel {
             // Weight (E)
             cell = row.createCell(4, CellType.NUMERIC);
             cell.setCellValue(1);
-            // Weight (F)
+            // Answers (F)
             cell = row.createCell(5, CellType.STRING);
             StringBuilder answers = new StringBuilder();
             int answersLength = q.getAnswerSet().size();
             int i = 0;
             for (Answer answer : q.getAnswerSet()) {
+                answers.append(answer.getId());
+                answers.append(") ");
                 if (++i == answersLength) {
                     answers.append(answer.getText());
                 } else {
@@ -130,7 +134,7 @@ public class CreateExcel {
                 }
             }
             cell.setCellValue(answers.toString());
-            // Weight (G)
+            // Right Answer (G)
             cell = row.createCell(6, CellType.STRING);
             int sizeOfAnswerSet = q.getAnswerNumber().size();
             int j = 0;

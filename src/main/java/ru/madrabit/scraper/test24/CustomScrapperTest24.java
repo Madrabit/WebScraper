@@ -1,33 +1,31 @@
 package ru.madrabit.scraper.test24;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.madrabit.scraper.*;
+import ru.madrabit.scraper.Scrapper;
+import ru.madrabit.scraper.UrlCrawler;
 import ru.madrabit.scraper.config.SeleniumHandler;
+import ru.madrabit.scraper.consts.ElementsConst;
 import ru.madrabit.scraper.consts.SiteLetters;
 import ru.madrabit.scraper.domen.Question;
 import ru.madrabit.scraper.poi.CreateExcel;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
-public class CustomScrapper implements Scrapper {
+public class CustomScrapperTest24 implements Scrapper {
 
     public static final String START_URL = "https://tests24.su/test-24/promyshlennaya-bezopasnost/";
-    private final Enum<SiteLetters> letter;
-
-    public CustomScrapper(Enum<SiteLetters> letter) {
-        this.letter = letter;
-    }
 
     private SeleniumHandler seleniumHandler = SeleniumHandler.getSeleniumHandler();
-    private Util util = Util.getUtil();
-    private List<String> ticketsList = new LinkedList<>();
     List<Question> questionList = new LinkedList<>();
     Map<Enum<SiteLetters>, String> letters = new HashMap<>();
 
     @Override
-    public void work() {
-        if (seleniumHandler.start()) {
+    public void work(SiteLetters letter) {
+        if (seleniumHandler.start(true)) {
             seleniumHandler.openPage(START_URL);
             log.info("Opened main page: {}", START_URL);
             UrlCrawler urlCrawler = new UrlCrawlerImpl(seleniumHandler);
@@ -38,10 +36,7 @@ public class CustomScrapper implements Scrapper {
                 QuestionsParser questionsParser = new QuestionsParser(tickets.get("A.1"), "A.1");
                 questionList = questionsParser.iterateTickets();
                 log.info("Questions in ticket: {}", questionList.size());
-                if (!questionList.isEmpty()) {
-                    CreateExcel excelDemo = new CreateExcel("A.1");
-                    excelDemo.createExcel(questionList);
-                }
+                saveToFile(questionList.isEmpty(), "A.1");
             } else {
                 letters = urlCrawler.scrapeLetters();
                 seleniumHandler.openPage(letters.get(letter));
@@ -52,13 +47,17 @@ public class CustomScrapper implements Scrapper {
                     QuestionsParser questionsParser = new QuestionsParser(entry.getValue(), entry.getKey());
                     questionList = questionsParser.iterateTickets();
                     log.info("Questions in ticket: {}", questionList.size());
-                    if (!questionList.isEmpty()) {
-                        CreateExcel excelDemo = new CreateExcel(entry.getKey());
-                        excelDemo.createExcel(questionList);
-                    }
+                    saveToFile(questionList.isEmpty(), entry.getKey());
                 }
             }
             seleniumHandler.stop();
+        }
+    }
+
+    private void saveToFile(boolean isEmpty, String letter) {
+        if (!isEmpty) {
+            CreateExcel excelDemo = new CreateExcel(letter);
+            excelDemo.createExcel(questionList);
         }
     }
 }

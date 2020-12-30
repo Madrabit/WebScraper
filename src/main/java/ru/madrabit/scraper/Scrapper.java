@@ -1,5 +1,7 @@
 package ru.madrabit.scraper;
 
+import ru.madrabit.scraper.consts.SiteLetters;
+
 public interface Scrapper {
-    void work();
+    void work(SiteLetters letter);
 }

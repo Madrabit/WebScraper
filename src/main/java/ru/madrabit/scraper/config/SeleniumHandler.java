@@ -31,9 +31,9 @@ public class SeleniumHandler {
     private Wait<WebDriver> wait;
     public static final int WAIT_TIME_MAX = 2; // That number calculated empirically. Affect scraper performance.
 
-    public boolean start() {
+    public boolean start(boolean headlessMode) {
         try {
-            driver = getChromeDriver();
+            driver = getChromeDriver(headlessMode);
             wait = new WebDriverWait(driver, WAIT_TIME_MAX);
         } catch (Exception e) {
             log.error("Driver was not initialized: {}", e.getMessage());
@@ -62,9 +62,9 @@ public class SeleniumHandler {
         return driver.getCurrentUrl();
     }
 
-    private WebDriver getChromeDriver() {
+    private WebDriver getChromeDriver(boolean headlessMode) {
         ChromeConfig.setDriverPath();
-        return new ChromeDriver(ChromeConfig.getChromeOptions());
+        return new ChromeDriver(ChromeConfig.getChromeOptions(headlessMode));
     }
 
     public void click(WebElement element) {
